@@ -6,7 +6,6 @@ def big_o(n_time, algo='NN', d=1, k=1, nodes=None, t=None):
     :param algo: algorithm to calculate computation effort for
     :param d: algorithm parameter
     :param k: algorithm parameter
-    :param i: algorithm parameter
     :param nodes: list of nodes (ie. [a, b, c, d] for a 4 layer network)
     :param t: training examples
     :return: Calculation time extrapolated to parameters that will be used
@@ -36,7 +35,6 @@ def big_o_inv(time, algo='KMeans', d=1, k=1):
     :param algo: algorithm used
     :param d: algorithm parameter
     :param k: algorithm parameter
-    :param i: algorithm parameter
     :return: Baseline n calculation time
     """
     if algo == 'KMeans':
