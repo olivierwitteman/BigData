@@ -1,4 +1,4 @@
-def big_o(n_time, algo='KMeans', d=1, k=1, i=1):
+def big_o(n_time, algo='NN', d=1, k=1, nodes=None, t=None):
     """
     Calculates the expected computation effort compared to n_time
 
@@ -7,6 +7,8 @@ def big_o(n_time, algo='KMeans', d=1, k=1, i=1):
     :param d: algorithm parameter
     :param k: algorithm parameter
     :param i: algorithm parameter
+    :param nodes: list of nodes (ie. [a, b, c, d] for a 4 layer network)
+    :param t: training examples
     :return: Calculation time extrapolated to parameters that will be used
     """
 
@@ -18,11 +20,15 @@ def big_o(n_time, algo='KMeans', d=1, k=1, i=1):
         return None
     elif algo == 'RandomForestRegressor':
         return None
-    else:
-        return None
+    elif algo == 'NN':
+        # https://ai.stackexchange.com/questions/5728/what-is-the-time-complexity-for-training-a-neural-network-using-back-propagation
+        nodecomplexity = 0
+        for q in range(len(nodes) - 1):
+            nodecomplexity += nodes[q] * nodes[q + 1]
+        return n_time * t * nodecomplexity
 
 
-def big_o_inv(time, algo='KMeans', d=1, k=1, i=1):
+def big_o_inv(time, algo='KMeans', d=1, k=1):
     """
     Calculates baseline n from a sample training with parameters used
 
