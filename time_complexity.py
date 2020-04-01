@@ -50,3 +50,7 @@ def big_o_inv(time, algo='RandomForestRegressor', n=1, t=1):
         return np.sqrt(time / (n * t))
     else:
         return None
+
+
+print(big_o_inv(38, n=int(5e4), t=int(1)))
+print(big_o(0.0276, nodes=[1, 1], t=int(5e4)))
