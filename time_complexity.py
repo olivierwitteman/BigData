@@ -31,7 +31,7 @@ def big_o_nn(n_base, m=1, o=1, i=1, nodes=(100, 8), t=1, method='scikit', inv=Fa
         if inv:
             return n_base / (t * m * nodecomplexity * o * i)
         else:
-            return n_base * t * m * nodecomplexity * o * i * t
+            return n_base * t * m * nodecomplexity * o * i
 
 
 def big_o_rfr(n_base, n_tree, m_try, n, inv=False):
