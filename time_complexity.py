@@ -72,5 +72,6 @@ def big_o_inv(time, algo='RandomForestRegressor', n=1, t=1):
         return None
 
 
-print(big_o_rfr(n_base=6, n_tree=100, m_try=8, n=int(1e4), inv=True))
-print(big_o_nn(n_base=8.143021535685971e-08, m=8, o=1, i=30, nodes=(1000, 8), t=int(200), inv=False))
+# t_b = big_o_rfr(n_base=6, n_tree=100, m_try=int(1e4), n=int(1e4), inv=True)
+# print(t_b)
+# print(big_o_nn(n_base=t_b, m=8, o=1, i=30, nodes=(100, 100, 100, 100), t=int(200), inv=False))
