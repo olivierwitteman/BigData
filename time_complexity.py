@@ -1,32 +1,44 @@
 import numpy as np
 
 
-def big_o(n_time, algo='NN', nodes=None, t=None):
+def big_o_nn(n_base, m=1, o=1, i=1, nodes=(100, 8), t=1, method='scikit'):
     """
     Calculates the expected computation effort compared to n_time
 
-    :param n_time: Calculation time for baseline n
+    :param n_base: Calculation time for baseline n
     :param algo: algorithm to calculate computation effort for
+    :param m: features
+    :param o: output neurons
+    :param i: iterations
     :param nodes: list of node sizes (ie. [a, b, c, d] for a 4 layer network)
     :param t: training examples
+    :param method: method for complexity calculation
     :return: Calculation time extrapolated to parameters that will be used
     """
 
-    if algo == 'KMeans':
-        # return n_time ** (d * k + 1)
-        return None
-    elif algo == 'SVC':
-        return None
-    elif algo == 'RandomForestClassifier':
-        return None
-    elif algo == 'RandomForestRegressor':
-        return None
-    elif algo == 'NN':
+    nodecomplexity = 0
+    for q in range(len(nodes) - 1):
+        nodecomplexity += nodes[q] * nodes[q + 1]
+
+    if method == 'stack':
         # https://ai.stackexchange.com/questions/5728/what-is-the-time-complexity-for-training-a-neural-network-using-back-propagation
-        nodecomplexity = 0
-        for q in range(len(nodes) - 1):
-            nodecomplexity += nodes[q] * nodes[q + 1]
-        return n_time * t * nodecomplexity
+        return n_base * t * nodecomplexity
+    elif method == 'scikit':
+        # https://scikit-learn.org/stable/modules/neural_networks_supervised.html
+        return n_base * t * m * nodecomplexity * o * i
+
+
+def big_o_rfr(n_base, n_tree, m_try, n):
+    """
+
+    :param n_base:
+    :param n_tree:
+    :param m_try:
+    :param n:
+    :return:
+    """
+
+    return n_base * n_tree * m_try * n * np.log(n)
 
 
 def big_o_inv(time, algo='RandomForestRegressor', n=1, t=1):
@@ -52,5 +64,4 @@ def big_o_inv(time, algo='RandomForestRegressor', n=1, t=1):
         return None
 
 
-print(big_o_inv(38, n=int(5e4), t=int(1)))
-print(big_o(0.0276, nodes=[1, 1], t=int(5e4)))
+# print(big_o(0.0276, nodes=[1, 1], t=int(5e4)))
