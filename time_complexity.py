@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def big_o_nn(n_base, m=1, o=1, i=1, nodes=(100, 8), t=1, method='scikit'):
+def big_o_nn(n_base, m=1, o=1, i=1, nodes=(100, 8), t=1, method='scikit', inv=False):
     """
     Calculates the expected computation effort compared to n_time
 
@@ -22,13 +22,19 @@ def big_o_nn(n_base, m=1, o=1, i=1, nodes=(100, 8), t=1, method='scikit'):
 
     if method == 'stack':
         # https://ai.stackexchange.com/questions/5728/what-is-the-time-complexity-for-training-a-neural-network-using-back-propagation
-        return n_base * t * nodecomplexity
+        if inv:
+            return n_base / (t * nodecomplexity)
+        else:
+            return n_base * t * nodecomplexity
     elif method == 'scikit':
         # https://scikit-learn.org/stable/modules/neural_networks_supervised.html
-        return n_base * t * m * nodecomplexity * o * i
+        if inv:
+            return n_base / (t * m * nodecomplexity * o * i)
+        else:
+            return n_base * t * m * nodecomplexity * o * i
 
 
-def big_o_rfr(n_base, n_tree, m_try, n):
+def big_o_rfr(n_base, n_tree, m_try, n, inv=False):
     """
 
     :param n_base:
@@ -37,8 +43,10 @@ def big_o_rfr(n_base, n_tree, m_try, n):
     :param n:
     :return:
     """
-
-    return n_base * n_tree * m_try * n * np.log(n)
+    if inv:
+        return n_base / (n_tree * m_try * n * np.log(n))
+    else:
+        return n_base * n_tree * m_try * n * np.log(n)
 
 
 def big_o_inv(time, algo='RandomForestRegressor', n=1, t=1):
@@ -64,4 +72,5 @@ def big_o_inv(time, algo='RandomForestRegressor', n=1, t=1):
         return None
 
 
-# print(big_o(0.0276, nodes=[1, 1], t=int(5e4)))
+print(big_o_rfr(n_base=6, n_tree=100, m_try=8, n=int(1e4), inv=True))
+print(big_o_nn(n_base=8.143021535685971e-08, m=8, o=1, i=30, nodes=(1000, 8), t=int(200), inv=False))
