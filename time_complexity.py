@@ -48,30 +48,3 @@ def big_o_rfr(n_base, n_tree, m_try, n, inv=False):
     else:
         return n_base * n_tree * m_try * n * np.log(n)
 
-
-def big_o_inv(time, algo='RandomForestRegressor', n=1, t=1):
-    """
-    Calculates baseline n from a sample training with parameters used
-
-    :param time: Actual calculation time using given parameters
-    :param algo: algorithm used
-    :param n: algorithm parameter sample size
-    :param t: algorithm parameter trees
-    :return: Baseline n calculation time
-    """
-    if algo == 'KMeans':
-        # return time ** -(d * k + 1)
-        return None
-    elif algo == 'SVC':
-        return None
-    elif algo == 'RandomForestClassifier':
-        return None
-    elif algo == 'RandomForestRegressor':
-        return np.sqrt(time / (n * t))
-    else:
-        return None
-
-
-# t_b = big_o_rfr(n_base=6, n_tree=100, m_try=int(1e4), n=int(1e4), inv=True)
-# print(t_b)
-# print(big_o_nn(n_base=t_b, m=8, o=1, i=30, nodes=(100, 100, 100, 100), t=int(200), inv=False))
